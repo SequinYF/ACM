@@ -1,0 +1,96 @@
+#include <iostream>
+#include <cstdio>
+#include <string.h>
+#include <queue>
+using namespace std;
+char map[31][31][31];
+bool vis[31][31][31];
+int L, R, C;
+int ex, ey, ez;
+int dx[6] = {0, 0, -1, 1, 0, 0};
+int dy[6] = {0, 0, 0, 0, 1, -1};
+int dz[6] = {1, -1, 0, 0, 0, 0};
+
+struct Node{
+    int x, y, z;
+    int time;
+}start;
+
+queue <Node> Q;
+
+bool check(Node nn){
+    if(nn.x >= 0 && nn.y >= 0 && nn.z >= 0 && nn.x < L && nn.y < R && nn.z < C){
+        return true;
+    }
+    return false;
+}
+
+
+
+int bfs(){
+    while(!Q.empty()){
+        Node now;
+        now = Q.front();
+        Q.pop();
+        Node next = now;
+        for(int i = 0; i < 6; i++){
+            next.x = now.x + dx[i];
+            next.y = now.y + dy[i];
+            next.z = now.z + dz[i];
+            if(check(next) && map[next.x][next.y][next.z] != '#' && !vis[next.x][next.y][next.z]){
+                if(next.x == ex && next.y == ey && next.z == ez){
+                    return now.time+1;
+                }
+                next.time = now.time +1;
+                vis[next.x][next.y][next.z] = true;
+                Q.push(next);
+            }
+        }
+
+    }
+    return -1;
+}
+
+
+
+int main(){
+    ios::sync_with_stdio(false);
+    freopen("btest.txt", "r", stdin);
+
+    while(cin >> L >> R >> C && R+L+C){
+        memset(vis, false, sizeof(vis));
+        for(int i = 0; i < L; i++){
+            for(int j = 0; j < R; j++){
+                for(int k = 0; k < C; k++){
+                    char &tt = map[i][j][k];
+                    cin >> tt;
+                    if(tt == 'S'){
+                        start.x = i;
+                        start.y = j;
+                        start.z = k;
+                        start.time = 0;
+                        Q.push(start);
+                        vis[start.x][start.y][start.z] = true; //
+                    }
+                    else if(tt == 'E'){
+                        ex = i;
+                        ey = j;
+                        ez = k;
+                    }
+                }
+            }
+        }
+
+        int ret = bfs();
+        if(ret >= 0){
+            printf("Escaped in %d minute(s).\n", ret);
+        }
+        else{
+            cout << "Trapped!" << endl;
+        }
+
+        while(!Q.empty()){
+            Q.pop();
+        }
+    }
+}
