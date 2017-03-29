@@ -3,8 +3,8 @@
 #include <string.h>
 #include <queue>
 using namespace std;
-char map[31][31][31];
-bool vis[31][31][31];
+char map[35][35][35];
+bool vis[35][35][35];
 int L, R, C;
 int ex, ey, ez;
 int dx[6] = {0, 0, -1, 1, 0, 0};
@@ -18,8 +18,8 @@ struct Node{
 
 queue <Node> Q;
 
-bool check(Node nn){
-    if(nn.x >= 0 && nn.y >= 0 && nn.z >= 0 && nn.x < L && nn.y < R && nn.z < C){
+bool check(int x, int y, int z){ //边界判断
+    if(x >= 0 && y >= 0 && z >= 0 && x < L && y < R && z < C){
         return true;
     }
     return false;
@@ -29,15 +29,14 @@ bool check(Node nn){
 
 int bfs(){
     while(!Q.empty()){
-        Node now;
-        now = Q.front();
+        Node now = Q.front();
         Q.pop();
-        Node next = now;
+        Node next;
         for(int i = 0; i < 6; i++){
             next.x = now.x + dx[i];
             next.y = now.y + dy[i];
             next.z = now.z + dz[i];
-            if(check(next) && map[next.x][next.y][next.z] != '#' && !vis[next.x][next.y][next.z]){
+            if(check(next.x, next.y, next.z) && map[next.x][next.y][next.z] != '#' && vis[next.x][next.y][next.z] == false){
                 if(next.x == ex && next.y == ey && next.z == ez){
                     return now.time+1;
                 }
@@ -58,7 +57,7 @@ int main(){
     freopen("btest.txt", "r", stdin);
 
     while(cin >> L >> R >> C && R+L+C){
-        memset(vis, false, sizeof(vis));
+        memset(vis, 0, sizeof(vis));
         for(int i = 0; i < L; i++){
             for(int j = 0; j < R; j++){
                 for(int k = 0; k < C; k++){
@@ -70,7 +69,7 @@ int main(){
                         start.z = k;
                         start.time = 0;
                         Q.push(start);
-                        vis[start.x][start.y][start.z] = true; //
+                        vis[i][j][k] = true; //
                     }
                     else if(tt == 'E'){
                         ex = i;
@@ -82,15 +81,16 @@ int main(){
         }
 
         int ret = bfs();
-        if(ret >= 0){
-            printf("Escaped in %d minute(s).\n", ret);
+        if(ret == -1){
+            cout << "Trapped!" << endl;
         }
         else{
-            cout << "Trapped!" << endl;
+            cout << "Escaped in " << ret << " minute(s)." << endl;
         }
 
         while(!Q.empty()){
             Q.pop();
         }
     }
+    return 0;
 }
