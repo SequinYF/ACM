@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <cstdio>
+#define NUM  100000
+#define LONG 10000000
+using namespace std;
+
+typedef struct node{
+    int bian[6];
+}snow[NUM];
+
+vector<node>hs[NUM];
+
+void hash(node tt){
+    int no = 0;
+    for(int i = 0; i < 6; i++){
+        no += snow[i];
+    }
+
+    no %= NUM;
+    hs[no].push_back(snow);
+}
+
+
+int main(){
+    ios::sync_with_stdio(false);
+    int n;
+    node tt;
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < 6; j++){
+            scanf("%d", &tt.bian[j]);
+        }
+        hash(tt);
+    }
+
+}
