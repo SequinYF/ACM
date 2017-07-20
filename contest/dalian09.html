@@ -1,0 +1,43 @@
+
+
+
+
+
+
+<html><head><meta name=keywords content="HDOJ ACM ICPC OJ C C++ Pascal Java"><meta http-equiv=Content-Type content="text/html;charset=gb2312"><script src="/js/global.js" type=text/javascript></script><script src="/js/MathJax/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script><link rel=stylesheet href="/images/global.css" type=text/css><title>Problem - 1009</title></head>
+<!--Added a "STD Contest" button by zhengfeng  2010-08-09-->
+<body><a name=top></a><center>
+<div id=contest_nav align=center>
+	<a href="/" style="margin:0"><img src="/images/banner.jpg" width=980 height=116></a>
+	<a href="/" style="margin-left:3px">Home</a>
+	<a href="/contests/contest_list.php?cid=725" style="margin-left:3px">STD Contest</a>
+	<a href="/contests/../notification.php?cid=725" style="margin-left:3px">Notification</a>
+	<a href="/contests/contest_listtopic.php?cid=725&page=1" style="margin-left:3px">Clarification</a>
+	<a href="/contests/contest_show.php?cid=725" style="margin-left:3px">Problems</a>
+	<a href="/contests/contest_ranklist.php?cid=725&page=1" style="margin-left:3px">Ranklist</a>
+	<a href="/contests/contest_status.php?cid=725" style="margin-left:3px">Status</a>
+	<!--<a href="/contests/contest_statistic.php?cid=725" style="margin-left:3px">Statistics</a>-->
+	<a href="#" style="margin-left:3px"><font color = gray>Statistics</font></a>
+	<a href="/contests/contest_print.php?cid=725" style="margin-left:3px;margin-right:0px">Print</a>
+</div>
+<div align=center id=rollword><marquee scrollamount=2 width=600 scrolldelay=30 onMouseOver="javascript:this.stop();" onMouseOut="javascript:this.start();"><b style="margin-right:20px"><a class="hot" href="/viewnotify.php?cid=725&id=5">1009:M 范围应为 M≤20000，已修改。请各位选手注意。</a></b><a href="/notification.php?cid=725">More...</a></marquee></div><div style="width:980px;padding:0;margin:0"><tr><td align=center><h1 style='color:#1A5CC8;margin-top: 20px'>Sparse Graph</h1><font face=Arial><b><span style='font-size:12px;color:green'>Time Limit: 4000/2000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 262144/262144 K (Java/Others)<br>Total Submission(s): 3078&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 443<br></span></b></font><br><br><div class=panel_title align=left>Problem Description</div><div class=panel_content>In graph theory, the $complement$ of a graph $ G $ is a graph $  H $ on the same vertices such that two distinct vertices of $ H $ are adjacent if and only if they are $not$ adjacent in $  G $. <br><br>Now you are given an undirected graph $  G $ of $ N $ nodes and $  M $ bidirectional edges of $unit$ length. Consider the complement of $G$, i.e., $H$. For a given vertex $ S $ on $  H $, you are required to compute the shortest distances from $ S $ to all $ N-1 $ other vertices.</div><div class=panel_bottom>&nbsp;</div><br><div class=panel_title align=left>Input</div><div class=panel_content>There are multiple test cases. The first line of input is an integer $T(1\le  T&lt;35) $ denoting the number of test cases. For each test case, the first line contains two integers $ N(2\le  N\le  200000) $ and $ M(0\le  M\le  20000) $. The following $  M $ lines each contains two distinct integers $ u, v(1\le  u,v\le  N) $ denoting an edge. And $ S\ (1\le  S\le  N) $ is given on the last line.</div><div class=panel_bottom>&nbsp;</div><br><div class=panel_title align=left>Output</div><div class=panel_content>For each of $ T $ test cases, print a single line consisting of $N-1 $ space separated integers, denoting shortest distances of the remaining $ N-1 $ vertices from $ S $ (if a vertex cannot be reached from S, output ``-1&quot; (without quotes) instead) in ascending order of vertex number.</div><div class=panel_bottom>&nbsp;</div><br><div class=panel_title align=left>Sample Input</div><div class=panel_content><pre><div style="word-wrap:break-word;White-space:Pre-wrap;width:inherit;font-family:Courier New,Courier,monospace;white-space:pre;">1
+2 0
+1</div></pre></div><div class=panel_bottom>&nbsp;</div><br><div class=panel_title align=left>Sample Output</div><div class=panel_content><pre><div style="word-wrap:break-word;White-space:Pre-wrap;width:inherit;font-family:Courier New,Courier,monospace;white-space:pre;">1</div></pre></div><div class=panel_bottom>&nbsp;</div><br><center style='font-size:15px;font-family:Arial;font-weight:bold;color:#1A5CC8'><a href='contest_statistic.php?cid=725&pid=1009'>Statistic</a>&nbsp;|&nbsp;<a href='contest_submit.php?cid=725&pid=1009'>Submit</a>&nbsp;|&nbsp;<a href='contest_listtopic.php?cid=725'>Clarifications</a>&nbsp;|&nbsp;<a href='contest_show.php?cid=725'>Back</A></center><br></td></tr></div>
+<div id=contest_footer>
+	<div class=footer_link style="width:15%;float:left;line-height:67px"><a href="/" >Home</a> | <a href="#top">Top</a></div>
+	<div style="width:68%;float:left">
+	Hangzhou Dianzi University Online Judge 3.0<br>
+	Copyright &copy; 2005-2016 <a href=mailto:acm@hdu.edu.cn>HDU ACM Team</a>. All Rights Reserved.<br>
+	<a href="../about_us/developer.php">Designer & Developer </a> : <a>Wang Rongtao</a>&nbsp<a>Lin Le</a>&nbsp<a href=mailto:gjavac@gmail.com >GaoJie</a>&nbsp<a href=mailto:gl8997@gmail.com >GanLu</a><br>
+	<span class=pagerunstatus>Total 0.000000(s) query 0, Server time : 2016-09-23 13:17:48, Gzip enabled</span>	</div>
+	<div class=footer_link style="width:15%;float:right;line-height:67px">
+		<a href="/admin">Administration</a>	
+	</div>
+</div></center>
+<script type="text/javascript">
+	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cspan id='cnzz_stat_icon_1254072405'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254072405%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+	document.getElementById('cnzz_stat_icon_1254072405').style.display = 'none';
+</script>
+</body>
+</html>

@@ -1,87 +1,62 @@
-#include <iostream>
-#include <map>
-#include <algorithm>
+#include <bits/stdc++.h>
+
 using namespace std;
-int b1, q, l, m;
-int b1f = false;
-int qf = false;
-map <long long, bool> a;
+const int MAXN=1e5+7;
 
-int main(){
-    int aa;
-
-    ios::sync_with_stdio(false);
-
-    cin >> b1 >> q >> l >> m;
-    for(int i = 0; i < m; i++){
-        cin >> aa;
-        if(aa == b1){
-            b1f  = true;
-        }
-        if(aa == 0){
-            qf = true;
-        }
-
-        a[aa] = true;
+long long b1,q,l,m;
+map<long long,bool>vis;
+int main()
+{
+    scanf("%I64d%I64d%I64d%I64d",&b1,&q,&l,&m);
+    long long x;
+    for(int i=0; i<m; ++i)
+    {
+        scanf("%I64d",&x);
+        vis[x]=1;
     }
 
-    if(q == 0){
-        if(b1 > l){
-            cout << 0 << endl;
-        }
-        else if(qf){
-            if(b1f)
-
-                cout << 0 << endl;
+    if(!b1)
+    {
+        if(!vis[0])puts("inf");
+        else puts("0");
+    }
+    else if(!q)
+    {
+        if(abs(b1)>l)puts("0");
+        else
+        {
+            if(!vis[0])puts("inf");
             else
-                cout << 1 << endl;
-        }
-        else {
-            cout << "inf" << endl;
-        }
-
-    }
-    else if(b1 == 0){
-        if(b1f){
-
-            cout << 0 << endl;
-        }
-        else{
-            cout << "inf" << endl;
-        }
-    }
-    else if(q == 1){
-        if(l < b1)
-            cout << 0 << endl;
-        else{
-            if(b1f){
-                cout << 0 << endl;
-            }
-            else{
-                cout << "inf" << endl;
+            {
+                if(!vis[b1])puts("1");
+                else puts("0");
             }
         }
     }
-    else if(q == -1){
-        if(b1f && qf){
-            cout << 0 << endl;
+    else if(abs(b1)<=l&&abs(q)==1)
+    {
+        if(q==1)
+        {
+            if(!vis[b1])puts("inf");
+            else puts("0");
         }
-        else{
-            cout << "inf" << endl;
+        else
+        {
+            if(vis[b1]&&vis[-b1])puts("0");
+            else puts("inf");
         }
     }
-    else{
-        int bn = b1;
-        int j = 0;
-        int i = 0;
-        while(bn <= l){
-            if(!a[bn]){
-                i++;
-            }
-            bn = bn * q;
+    else
+    {
+        long long sum=0;
+        long long t=b1;
+        while(abs(t)<=l)
+        {
+            if(!vis[t])sum++;
+            t*=q;
         }
-        cout << i << endl;
+        printf("%I64d\n",sum);
     }
 
-
+    return 0;
 }

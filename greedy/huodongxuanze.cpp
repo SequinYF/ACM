@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <queue>
 #include <cmath>
 #include <algorithm>
@@ -11,11 +12,18 @@ struct node{
 };
 int ret;
 node act[1001];
-queue <int> step;
 
 bool cmp(node a, node b){
     return a.e < b.e;
 }
+
+struct cmp2{
+    bool operator ()(int &a, int &b){
+        return a > b;
+    }
+};
+
+priority_queue <int, vector<int>, cmp2> step;
 
 void func(){
     int s = 0;
@@ -46,8 +54,9 @@ int main(){
     func();
     cout << ret << endl;
     while(!step.empty()){
-        cout << step.front();
+        cout << step.top() << " ";
         step.pop();
     }
+    cout << endl;
 }
 
