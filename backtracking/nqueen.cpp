@@ -68,7 +68,13 @@ void func(int t){
 int main(){
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
+            char a;
+            cin >> a;
+            if(a == '#')
             mapp[i][j] = false;
+            else if(a == '.'){
+                mapp[i][j] = true;
+            }
         }
     }
     cin >> n;
