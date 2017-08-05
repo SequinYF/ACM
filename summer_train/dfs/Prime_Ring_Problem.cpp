@@ -8,58 +8,44 @@
 
 #include <iostream>
 #include <stdio.h>
-#include <string.h>
-#include <stack>
-#include <queue>
-#include <map>
-#include <ctype.h>
-#include <set>
-#include <vector>
-#include <cmath>
-#include <bitset>
 #include <algorithm>
-#include <climits>
-#include <string>
-#include <list>
-#include <cctype>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
+#include <string.h>
+#include <stdlib.h>
 using namespace std;
 
-#define lson 2*i
-#define rson 2*i+1
-#define LS l,mid,lson
-#define RS mid+1,r,rson
-#define UP(i,x,y) for(i=x;i<=y;i++)
-#define DOWN(i,x,y) for(i=x;i>=y;i--)
-#define MEM(a,x) memset(a,x,sizeof(a))
-#define W(a) while(a)
-#define gcd(a,b) __gcd(a,b)
-#define pi acos(-1.0)
-#define pii pair<int,int>
-#define ll long long
-#define MAX 1000005
-#define MOD 1000000007
-#define INF 0x3F3F3F3F
-#define EXP 1e-8
-#define lowbit(x) (x&-x)
-ll qpow(ll p,ll q){ll f=1;while(q){if(q&1)f=f*p;p=p*p;q>>=1;}return f;}
-int ret[1][5000];
-bool vis[50];
-int rret[5000];
+int ret[20];
+bool vis[22];
+
+int t;
 int R, r;
+int prime[22][22];
+int sum;
+int dbret[19][2000][20];
 
-int prime(int a, int b)
-{	int n = a + b;
-    if(n == 2){
-        return 1;
-    }
-    for(int i = 2; i * i <= n; i++) {
-        if(n % i == 0) return 0;
-    }
-    return 1;
+void do_prime(){
 
+    bool flag = true;
+    int ii, jj;
+    for(jj = 1; jj < 20; jj++){
+        for(ii = 1; ii < 20; ii++){
+            flag = true;
+            int n = ii+jj;
+            if(ii == jj){
+                continue;
+            }
+            for(int i = 2; i * i <= n; i++) {
+                if(n % i == 0){
+                    flag = false;
+                    break;
+                }
+            }
+
+            if(flag){
+                prime[jj][ii] = 1;
+                flag = true;
+            }
+        }
+    }
 }
 
 void dfs(int index, int pre, int border, int depth){
@@ -69,12 +55,21 @@ void dfs(int index, int pre, int border, int depth){
     }
 
     if(depth == border){
-        if(prime(index, 1)){
-            memcpy(rret, ret[R], sizeof(ret[R]));
-            for(int j = 0; j < border; j++){
-                printf("%d ", rret[j]);
+        if(prime[index][1]){
+            sum++;
+            if(border <= 14){
+                R++;
+                memcpy(dbret[border-1][R], ret, sizeof(ret));
+            }else{
+                for(int j = 0; j < border; j++){
+                    if(j == border-1){
+                        printf("%d", ret[j]);
+                    }
+                    printf("%d ", ret[j]);
+                }
+                puts("");
+
             }
-            puts("");
         }
         return;
     }
@@ -84,10 +79,10 @@ void dfs(int index, int pre, int border, int depth){
 
     int i = 2;
     while(i <= border){
-        if (vis[i] && prime(pre, i))
+        if (vis[i] && prime[pre][i])
         {
             vis[i] = 0;
-            ret[R][r++] = i;
+            ret[r++] = i;
             dfs(i, pre, border, depth+1);
             --r;
             vis[i] = 1;
@@ -97,21 +92,57 @@ void dfs(int index, int pre, int border, int depth){
     return;
 }
 
-int main(){
-    ios::sync_with_stdio(false);
-    int t;
-    int ii = 1;
-    while(scanf("%d", &t)){
+void do_dfs(){
+    for(int i = 2; i <= 14; i += 2){
+        sum = 0;
         memset(vis, 1, sizeof(vis));
         vis[1] = 0;
         r = 1;
         R = 0;
-        ret[0][0] = 1;
-        printf("Case %d:\n", ii);
-        dfs(1, 1, t, 1);
-        for(int i = 0; i < R; i++){
+        ret[0] = 1;
+        dfs(1, 1, i, 1);
+        dbret[i-1][0][0] = sum;
+    }
+}
+
+int main(){
+    ios::sync_with_stdio(false);
+    int ii = 1;
+    memset(prime, 0, sizeof(prime));
+    do_prime();
+    do_dfs();
+    t = 0;
+    while(scanf("%d", &t) != EOF){
+         printf("Case %d:\n", ii);
+        if(t <= 14 && t %2  == 0){
+           
+            for(int i =  1; i <= dbret[t-1][0][0]; i++)
+            {
+                for(int j = 0; j < t; j++){
+                    if(j == t-1){
+                printf("%d", dbret[t-1][i][j]);    
+            }
+            else{
+                 printf("%d ", dbret[t-1][i][j]);    
+            }
+           
+            }                 
+                  if(i != dbret[t-1][0][0])
+                puts("");
+            
+            }
             puts("");
         }
+        else{
+            sum = 0;
+            memset(vis, 1, sizeof(vis));
+            vis[1] = 0;
+            r = 1;
+            R = 0;
+            ret[0] = 1;
+            dfs(1, 1, t, 1);
+        }
+        puts("");
         ii++;
     }
 }
