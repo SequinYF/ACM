@@ -4,71 +4,78 @@
  * mail: Catherine199787@outlook.com
  * Created Time: 二  8/ 8 15:48:25 2017
  *************************************************************************/
-
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
 #include <algorithm>
 using namespace std;
-long long dp[65][50000];
-long long v[65][3];
-long long p[65][3];
-
+int dp[50000];
+//int v[65][3];
+//int p[65][3];
+int v1[65],v2[65],v3[65];
+int p1[65],p2[65],p3[65];
 int main(){
     int n, m;
-    while (cin >> n >> m){
+    while (cin >> n >> m)
+    {
+                    for(int j=0;j<65;j++)
+            {
+                v1[j]=v2[j]=v3[j]=0;
+                p1[j]=p2[j]=p3[j]=0;
+            }
         int ii = 1;
-        for (int i = 0; i < m; ++i)
+        for (int i = 1; i <= m; ++i)
         {
-            long long vv, pp, q;
+            
+            int vv, pp, q;
             cin >> vv >> pp >> q;
             if(q == 0){
-                v[ii][0] = vv;
-                p[ii][0] = pp*vv;
-                ii++;
+                v1[i]= vv;
+                p1[i]= pp*vv;
             }
             else{
-                if(v[q][1] == 0){
-                    v[q][1] = vv;
-                    p[q][1] = pp*vv;
+                if(v2[q] == 0){
+                    v2[q] = vv;
+                    p2[q] = pp*vv;
                 }
                 else{
-                    v[q][2] = vv;
-                    p[q][2] = pp*vv;
+                    v3[q] = vv;
+                    p3[q] = pp*vv;
                 }
             }
         }
 
-        for (int i = 1; i < ii; ++i)
-        {
-            for (int j = 0; j < 3; ++j)
-            {
-                cout << v[i][j] << " ";
-                cout << p[i][j] << " ";
-            }
-            cout << endl;
-        }
+//        for (int i = 1; i < ii; ++i)
+//        {
+//            for (int j = 0; j < 3; ++j)
+//            {
+//                cout << v[i][j] << " ";
+//                cout << p[i][j] << " ";
+//            }
+//            cout << endl;
+//        }
 
         memset(dp, 0, sizeof(dp));
-
-        for (int i = 1; i < ii; ++i)
+        int maxn=0;
+        for (int i = 1; i<=m; ++i)
         {
-            for (int j = n; j >= v[i][0]; j--)
+            if(v1[i]!=0)
+            for (int j = n; j >= v1[i]; j--)
             {   
-                dp[i][j] = max(dp[i-1][j], dp[i-1][j-v[i][0]] + p[i][0]);
+                int d= dp[j-v1[i]]+p1[i];
+                dp[j] = max(dp[j], d);
+                if(j >= v1[i]+v2[i])
+                    dp[j] = max(dp[j], dp[j-v1[i]-v2[i]] + p1[i]+ p2[i]);
 
-                if(j >= v[i][0]+v[i][1])
-                    dp[i][j] = max(dp[i][j], dp[i][j-v[i][0]-v[i][1]] + p[i][0] + p[i][1]);
+                if(j >= v1[i]+v3[i])
+                    dp[j] = max(dp[j], dp[j-v1[i]-v3[i]] + p1[i] + p3[i]);
 
-                if(j >= v[i][0]+v[i][2])
-                    dp[i][j] = max(dp[i][j], dp[i][j-v[i][0]-v[i][2]] + p[i][0] + p[i][2]);
-
-                if(j >= v[i][0]+v[i][1]+v[i][2])
-                    dp[i][j] = max(dp[i][j], dp[i][j-v[i][0]-v[i][1]-v[i][2]] + p[i][0] + p[i][1] + p[i][2]);
-            
+                if(j >= v1[i]+v2[i]+v3[i])
+                    dp[j] = max(dp[j], dp[j-v1[i]-v2[i]-v3[i]] + p1[i] + p2[i] + p3[i]);
+               
+                maxn=max(dp[j],maxn);
             }
         }
-        cout << dp[ii-1][n] << endl;
+        cout << dp[n]<< endl;
     }
 }
-
