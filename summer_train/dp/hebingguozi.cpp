@@ -30,7 +30,6 @@ int main(){
 	p[1] = guo[1]+guo[2];
 	int head, tail;
 	head = tail = 1;
-	int nn;
 	int index = 3;
 	int sum = p[1];
 	p[2] = INF;
