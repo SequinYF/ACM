@@ -9,34 +9,36 @@
 #include <stdio.h>
 #include <cmath>
 #include <algorithm>
-
+using namespace std;
 int main(){
     double X, Y;
     while(scanf("%lf%lf", &X, &Y) != EOF) {
-        double per = 1.0;
-        double x = 1.0, y = 1.0;
-        int step = 0;
-        if(X == 1 && Y == 1) {
-            printf("%d\n", 1);
-            continue;
-        }
-        while(floor(x) != X && floor(y) != Y) {
-            if(per - Y/(X*1.0) > 10e-9) {
-                step--;
-                per = (y-1)/x;
-                y += (per-1);
-                printf("%f %f\n", per, y);
-                x += 1.0;
+        double maxcost = Y / X;
+        double x = 1, y = 1;
+        double cost = 1.0;
+        int step = 1;
+        while(floor(x) - floor(X) < 10e-2 || floor(y) - floor(Y) < 10e-2) {
+            double temp = y + 1;
+            if(floor(temp) == Y && floor(x) == X){
+                break;
             }
-            else
-                y += 1;
-            per = y / (x * 1.0);
-            printf("%f\n", per);
-            printf("%f %f\n", x, y);
+            cout << cost << endl;
+            if(maxcost -temp/x < 10e-9){
+                cout << maxcost << endl;
+                cout << floor(temp)/x << endl;
+                cout << temp <<"d" <<x << endl;
+                y += cost;
+                x += 1;
+            }
+            else{
+                y = temp;
+                cost = y / x;
+            }
+            cout << x << ":"<< y << endl;
             step++;
         }
 
-        printf("%d\n", step-1);
+        cout << step << endl;
     }
 }
 
