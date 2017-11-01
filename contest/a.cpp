@@ -46,31 +46,49 @@ using namespace std;
 ll qpow(ll p,ll q){ll f=1;while(q){if(q&1)f=f*p;p=p*p;q>>=1;}return f;}
 string str;
 
-
-
 int main() {
     int t;
     cin >> t;
     while(t--) {
-        int n, m;
-        cin >> n >> m;
+        int len;
+        cin >> len;
         cin >> str;
-        int lc = 0, rc = 0;
-        for(int i = 1; i < str.length() - 1; i++ ) {
-            if(i <= m-1) {
-                if(str[i] == 'R')
-                rc++;
-            }
+        int ans  = 0;
+        bool flag = true;
+        for(int i = 0; i <= len - 3; i++) {
+            if(str[i] == 'C' && str[i+1] == 'C') {
+                if(str[i+2] == 'C' && flag) {
+                    if(str[i+3] != 'P' || str[i+4] != 'C') {
+                        flag = false;
+                    }
+                }
+                else if(str[i+2] == 'P') {
+                    if(str[i+3] == 'C') {
+                        ans++;
+                    }
+                    else if(flag){
+                        flag = false;
+                    }
 
-            if(i >= m-1) {
-                if(str[i] == 'L')
-                lc++;
+                }
+            }
+            else if(str[i] == 'C' && str[i+1] == 'P') {
+                if(str[i+2] == 'C' && flag) {
+                    if(i > 0) {
+                        if(str[i-1] != 'C' && flag) {
+                            flag = false;
+                        }
+                    }
+                    if(i == 0) {
+                        flag = false;
+                    }
+                }
             }
         }
-        int ans = min(lc, rc);
 
-        cout << ans << endl;
-
+        if(flag)
+            cout << ans << endl;
+        else
+            cout << ans + 1 << endl;
     }
-
 }
