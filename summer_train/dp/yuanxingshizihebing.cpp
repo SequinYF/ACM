@@ -19,9 +19,9 @@ int stone[2000];
 int sum[2000];
 
 int main() {
-	int n, add = 0;
-	cin >> n;
-
+	int n, add;
+	while(cin >> n){
+		add = 0;
 	for(int i = 1; i <= n; i++) {
 		cin >> stone[i];
 		add += stone[i];
@@ -62,7 +62,6 @@ int main() {
 		temp_min = min(dp_min[i][n+i-1], temp_min);
 	}
 
-	cout << temp_min << endl;
-	cout << temp_max << endl;
-
+	cout << temp_min << " " << temp_max << endl;
+}
 }

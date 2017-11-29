@@ -20,10 +20,10 @@ int main(){
         while(floor(x) - floor(X) < 10e-2 || floor(y) - floor(Y) < 10e-2) {
             double temp = y + 1;
             if(floor(temp) == Y && floor(x) == X){
-                break;
+                continu;
             }
             cout << cost << endl;
-            if(maxcost -temp/x < 10e-9){
+            if(maxcost -floor( temp)/x < 10e-9){
                 cout << maxcost << endl;
                 cout << floor(temp)/x << endl;
                 cout << temp <<"d" <<x << endl;

@@ -64,7 +64,7 @@ void dfs(int u) {
             dfs(v);
             low[u] = min(low[u], low[v]);
         }
-        else if(!sccno[u]) {
+        else if(!sccno[v]) {
             low[u] = min(pre[v], low[u]);
         }
     }

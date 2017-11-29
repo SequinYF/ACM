@@ -128,8 +128,6 @@ int bfs() {
 
 int main() {
 
-    freopen("aa.txt", "r", stdin);
-    freopen("bb.txt", "wr", stdout);
     int N;
     scanf("%d", &N);
     while(N--) {
